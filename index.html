@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <title>Google Fit</title>
+  <style>
+    form{
+      padding: 10px;
+      float: left;
+      width: 50%;
+    }
+    .form-cont{
+      display: flex;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-5 ml-3">Google Fit</h1>
+    <div class="form-cont">
+      <form action="/api/exercise/new-user" method="post">
+        <div class="form-group">
+          <label for="username">Username: </label>
+          <code> POST /api/exercise/new-user</code>
+          <input type="text" name="username" id="username" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-success">Add User</button>
+      </form>
+      <form action="/api/exercise/add" method="post">
+        <div class="form-group">
+          <label for="userId">User ID*</label>
+          <code>POST /api/exercise/add</code>
+          <input type="text" name="userId" id="userId" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="description">Description*</label>
+          <input type="text" name="description" id="description" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="duration">Duration*</label>
+          <input type="text" name="duration" id="duration" class="form-control" placeholder="mins">
+        </div>
+        <div class="form-group">
+          <label for="date">Date*</label>
+          <input type="text" name="date" id="date" class="form-control" placeholder="(yyyy-mm-dd)">
+        </div>
+        <button type="submit" class="btn btn-success">Add Exercise</button>
+      </form>
+    </div>
+    <div class="mt-2 p-2 border">
+      <p>
+        Get user's log: <code>GET /api/exercise/log?{userId}[&from][&to][&limit]</code>
+      </p>
+      <p>
+        <b>{ }</b> = required, <b>[ ]</b> = optional<br>
+        <b>from</b>, <b>to</b> = dates (yyyy-mm-dd); <b>limit</b> = number
+      </p>
+    </div>
+    <div class="mt-2 p-2 border mb-5">
+      <h5>Usage</h5>
+      <p><b>POST /api/exercise/new-user</b> will register you.</p>
+      <p><b>GET /api/exercise/users</b> will give all the users in the system.</p>
+      <p><b>POST /api/exercise/add</b> will add a new exercise to user's log array and returns the following:</p>
+      <p><b>GET /api/exercise/log?userId=someId&from=fromTime&to=untillTime</b> will give exercise log of the user for a specified period of time.</p>
+    </div>
+  </div>
+</body>
+</html>

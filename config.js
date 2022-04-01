@@ -1,0 +1,1 @@
+exports.DB_URL = 'mongodb+srv://gilbert:mavhunguro101@cluster0.raol9.gcp.mongodb.net/gilbert';
