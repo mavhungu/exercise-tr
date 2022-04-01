@@ -3,7 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
+const {json, urlencoded} = require("body-parser");
 const morgan = require("morgan");
 const app = express();
 const { Schema } = mongoose;
@@ -13,6 +13,8 @@ const dbURI = process.env.MONGO_URI;
 
 app.use(cors());
 app.use(morgan("dev"));
+app.use(json())
+app.use(urlencoded({ extended: false }))
 app.use(express.static("public"));
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
@@ -32,10 +34,7 @@ const userSchema = new Schema({
 const User = mongoose.model("User", userSchema);
 const Session = mongoose.model("Session", exerciseSessionSchema);
 
-app.post(
-  "/api/users",
-  bodyParser.urlencoded({ extended: false }),
-  (req, res) => {
+app.post("/api/users",(req, res) => {
     let newUser = new User({ username: req.body.username });
 
     newUser.save((error, savedUser) => {
@@ -55,10 +54,7 @@ app.get("/api/users", (req, res) => {
   });
 });
 
-app.post(
-  "/api/users/:_id/exercises",
-  bodyParser.urlencoded({ extended: false }),
-  (req, res) => {
+app.post("/api/users/:_id/exercises",(req, res) => {
     let newSession = new Session({
       description: req.body.description,
       duration: parseInt(req.body.duration),
