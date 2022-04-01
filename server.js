@@ -9,7 +9,7 @@ const app = express();
 const { Schema } = mongoose;
 
 const port = process.env.PORT || 8000;
-const dbURI = process.env.MONGODB_URI;
+const dbURI = process.env.MONGO_URI;
 
 app.use(cors());
 app.use(morgan("dev"));
@@ -111,7 +111,6 @@ app.get("/api/users/:_id/logs", (req, res) => {
         return sessionDate >= fromDate && sessionDate <= toDate;
       });
     }
-
     if (req.query.limit) {
       responseObject.log = responseObject.log.slice(0, req.query.limit);
     }
@@ -122,8 +121,7 @@ app.get("/api/users/:_id/logs", (req, res) => {
   });
 });
 
-mongoose
-  .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to Database"))
   .catch((error) => console.log(error));
 
